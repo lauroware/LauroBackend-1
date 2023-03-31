@@ -1,13 +1,14 @@
 import fs from "fs";
 
 class ProductManager {
-  constructor() {
+  constructor(filePath) {
     this.products = [];
     this.lastId = 0;
-    this.filename = "products.txt"; // Nombre del archivo
+    this.path = filePath; // ruta del archivo
+
     // Si el archivo existe, lo cargamos en memoria
-    if (fs.existsSync(this.filename)) {
-      const data = fs.readFileSync(this.filename, "utf-8");
+    if (fs.existsSync(this.path)) {
+      const data = fs.readFileSync(this.path, "utf-8");
       this.products = JSON.parse(data);
       // Asignamos el último id a partir de los productos cargados
       this.lastId = Math.max(...this.products.map((product) => product.id));
@@ -37,7 +38,7 @@ class ProductManager {
 
     this.products.push(product);
 
-    fs.writeFileSync(this.filename, JSON.stringify(this.products, null, 2));
+    fs.writeFileSync(this.path, JSON.stringify(this.products, null, 2));
 
     console.log(`El producto id ${product.id} fue añadido correctamente.`);
   }
@@ -77,7 +78,7 @@ class ProductManager {
   }
 }
 
-const productManager = new ProductManager();
+const productManager = new ProductManager("./products.txt");
 
 productManager.addProduct(
   "Producto de prueba 1",
