@@ -5,7 +5,8 @@
   "main": "ProductManager.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/lauroware/LauroBackend-1/issues"
   },
-  "homepage": "https://github.com/lauroware/LauroBackend-1#readme"
+  "homepage": "https://github.com/lauroware/LauroBackend-1#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }

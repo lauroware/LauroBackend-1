@@ -4,15 +4,16 @@ class ProductManager {
   constructor(filePath) {
     this.products = [];
     this.lastId = 0;
-    this.path = filePath; // ruta del archivo
-
-    // Si el archivo existe, lo cargamos en memoria
+    this.path = filePath;
     if (fs.existsSync(this.path)) {
       const data = fs.readFileSync(this.path, "utf-8");
       this.products = JSON.parse(data);
-      // Asignamos el último id a partir de los productos cargados
       this.lastId = Math.max(...this.products.map((product) => product.id));
     }
+  }
+
+  generateId() {
+    return this.products.length + 1;
   }
 
   addProduct(title, description, price, thumbnail, code, stock) {
@@ -27,7 +28,7 @@ class ProductManager {
     }
 
     const product = {
-      id: ++this.lastId,
+      id: this.generateId(),
       title,
       description,
       price,
@@ -69,16 +70,23 @@ class ProductManager {
     return this.products;
   }
 
+  getProductsJson() {
+    return JSON.stringify(this.products);
+  }
+
   getProductById(id) {
     const product = this.products.find((p) => p.id === id);
     if (!product) {
       console.error("Producto no encontrado");
+      return;
     }
     return product;
   }
 }
 
-const productManager = new ProductManager("./products.txt");
+const productManager = new ProductManager("src/products.txt");
+
+export default ProductManager;
 
 productManager.addProduct(
   "Producto de prueba 1",
@@ -101,10 +109,73 @@ productManager.addProduct(
 productManager.addProduct(
   "Producto de prueba 3",
   "Este es un producto de prueba",
-  400,
+  300,
   "ruta/de/imagen",
   "ABC3",
   4
+);
+
+productManager.addProduct(
+  "Producto de prueba 4",
+  "Este es un producto de prueba",
+  400,
+  "ruta/de/imagen",
+  "ABC4",
+  4
+);
+
+productManager.addProduct(
+  "Producto de prueba 5",
+  "Este es un producto de prueba",
+  2500,
+  "ruta/de/imagen",
+  "ABC5",
+  12
+);
+
+productManager.addProduct(
+  "Producto de prueba 6",
+  "Este es un producto de prueba",
+  900,
+  "ruta/de/imagen",
+  "ABC6",
+  4
+);
+
+productManager.addProduct(
+  "Producto de prueba 7",
+  "Este es un producto de prueba",
+  150,
+  "ruta/de/imagen",
+  "ABC7",
+  27
+);
+
+productManager.addProduct(
+  "Producto de prueba 8",
+  "Este es un producto de prueba",
+  360,
+  "ruta/de/imagen",
+  "ABC8",
+  95
+);
+
+productManager.addProduct(
+  "Producto de prueba 9",
+  "Este es un producto de prueba",
+  40,
+  "ruta/de/imagen",
+  "ABC9",
+  25
+);
+
+productManager.addProduct(
+  "Producto de prueba 10",
+  "Este es un producto de prueba",
+  300,
+  "ruta/de/imagen",
+  "ABC10",
+  3
 );
 
 const products = productManager.getProducts();
